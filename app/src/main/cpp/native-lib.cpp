@@ -1,6 +1,5 @@
 #include <jni.h>
 #include <string>
-#include <math.h>
 
 extern "C"
 /*
@@ -37,13 +36,4 @@ Java_com_example_terry_temperaturetool_DegreeConverter_convert_1JNI(JNIEnv *env,
 
 
     return 0;
-}
-/*single conversion for only the ambient temperature conversion*/
-JNIEXPORT jfloat JNICALL
-Java_com_example_terry_temperaturetool_DegreeConverter_convertCurrent_1JNI(JNIEnv *env,
-                                                                           jobject instance,
-                                                                           jfloat temp) {
-
-    // TODO covert to Fahrenheit
-    return (jfloat)(temp*1.8 + 32.0);
 }

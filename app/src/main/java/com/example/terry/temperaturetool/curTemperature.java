@@ -17,13 +17,14 @@ public class curTemperature implements SensorEventListener {
 
     private final Sensor mAmbrient;
     private final SensorManager mSensorManager;
+    private final Activity ma;
     private float curTemp;// current temperature
     private boolean format;//format indicator, 0 for °F, 1 for °C
-    private String formatDisplay;
     private TextView TempView;//view display for current temp
 
     public curTemperature(Activity ma){
         //initialization
+        this.ma = ma;
         mSensorManager = (SensorManager)ma.getSystemService(ma.SENSOR_SERVICE);
         mAmbrient = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         TempView = (TextView) ma.findViewById(R.id.CurrentTemp);
@@ -43,11 +44,13 @@ public class curTemperature implements SensorEventListener {
         if(Math.abs(this.curTemp - event.values[0])> 1.0){
             this.curTemp = event.values[0];
             // display the sensor monitored data.
-            int displayValue = Math.round(curTemp);
+            long displayValue = Math.round(curTemp);
             if(!format){
-                displayValue = Math.round(new DegreeConverter().convertCurrent(curTemp));
+                double[] tp = {curTemp};
+                new DegreeConverter().convert(tp, false);
+                displayValue = Math.round(tp[0]);
             }
-            TempView.setText( displayValue + formatDisplay);
+            TempView.setText(displayValue + "°");
         }
 
 
@@ -69,7 +72,6 @@ public class curTemperature implements SensorEventListener {
     public void setFormat(boolean format){
         // TODO: setting the display format
         this.format = format;
-        this.formatDisplay = format? "°C":"°F";
 
     }
 }

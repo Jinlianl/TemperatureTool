@@ -19,11 +19,22 @@ import android.widget.Toast;
 * */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * A native method that is implemented by the 'native-lib' native library,
+     * which is packaged with this application.
+     */
+
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
+    }
+
     protected double[] weatherList;//store the temperature data for weekdays
     protected curTemperature mCurTemp;
     protected boolean format;//True for Celsius, False for Fahrenheit
     protected ListView weekDayIndex;
     protected Button FormatChanger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         FormatChanger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo: format swich
+                //todo: format switch
                 format = format? false:true;
                 weatherList = new DegreeConverter().convert(weatherList,format);
                 setTemperature(weatherList,weekDayIndex);
@@ -89,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     protected void onResume() {
         super.onResume();
         mCurTemp.onResume();
@@ -98,16 +110,5 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         mCurTemp.onPause();
 
-    }
-
-
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-
-    // Used to load the 'native-lib' library on application startup.
-    static {
-        System.loadLibrary("native-lib");
     }
 }

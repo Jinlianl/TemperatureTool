@@ -12,7 +12,7 @@ public class WeatherGenerator {
     private double[] weatherList;
 
     public WeatherGenerator(){
-        //TODO:constuctor
+        //TODO:constructor
         this.weatherList = new double[5];
         generateWeatherList();
     }

@@ -13,7 +13,6 @@ public class DegreeConverter {
     }
 
     private native int convert_JNI(double[] list, int format);
-    private native float convertCurrent_JNI(float temp);
 
     public double[] convert(double[] tempList, boolean format){
         //TODO: implement native method of format converter
@@ -26,10 +25,6 @@ public class DegreeConverter {
 
         return tempList;
     }
-    public float convertCurrent(float temp){
-        return convertCurrent_JNI(temp);
-    }
-
 
 
 }
